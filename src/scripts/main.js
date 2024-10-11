@@ -4,8 +4,8 @@
 function waitFor(element, eventName) {
   const promise = new Promise((resolve) => {
     element.addEventListener(eventName, (e) => {
-      // eslint-disable-next-line no-undef
-      resolve(`It was ${eventName} on the element: ${element.nodeName}, id: ${element.id}.`);
+      resolve(`It was ${eventName} on the element: ` +
+        `${element.nodeName}, id: ${element.id}.`);
     },
     { once: true });
   });
@@ -15,6 +15,7 @@ function waitFor(element, eventName) {
 
 const printMessage = (message) => {
   const existingMessage = document.querySelector('.message');
+  const form = document.querySelector('form');
 
   if (existingMessage) {
     existingMessage.textContent = message;
@@ -24,7 +25,7 @@ const printMessage = (message) => {
     div.classList.add('message');
     div.textContent = message;
 
-    document.querySelector('form').append(div);
+    form.append(div);
   }
 };
 
