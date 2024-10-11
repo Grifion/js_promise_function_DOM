@@ -4,8 +4,6 @@
 function waitFor(element, eventName) {
   const promise = new Promise((resolve) => {
     element.addEventListener(eventName, (e) => {
-      e.preventDefault();
-
       // eslint-disable-next-line no-undef
       resolve(`It was ${eventName} on the element: ${element.nodeName}, id: ${element.id}.`);
     },
@@ -19,18 +17,15 @@ const printMessage = (message) => {
   const existingMessage = document.querySelector('.message');
 
   if (existingMessage) {
-    existingMessage.remove();
+    existingMessage.textContent = message;
+  } else {
+    const div = document.createElement('div');
+
+    div.classList.add('message');
+    div.textContent = message;
+
+    document.querySelector('form').append(div);
   }
-
-  const div = document.createElement('div');
-  const form = document.querySelector('form');
-
-  div.classList.add('message');
-  div.style.marginTop = '5px';
-  div.style.marginBottom = '5px';
-  div.textContent = message;
-
-  form.append(div);
 };
 
 const loginField = document.getElementById('login');
