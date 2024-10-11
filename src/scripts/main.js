@@ -1,11 +1,36 @@
+/* eslint-disable prettier/prettier */
 'use strict';
 
 function waitFor(element, eventName) {
-  // write your code here
+  const promise = new Promise((resolve) => {
+    element.addEventListener(eventName, (e) => {
+      e.preventDefault();
+
+      // eslint-disable-next-line no-undef
+      resolve(`It was ${eventName} on the element: ${element.nodeName}, id: ${element.id}.`);
+    },
+    { once: true });
+  });
+
+  return promise;
 }
 
 const printMessage = (message) => {
-  // write your code here
+  const existingMessage = document.querySelector('.message');
+
+  if (existingMessage) {
+    existingMessage.remove();
+  }
+
+  const div = document.createElement('div');
+  const form = document.querySelector('form');
+
+  div.classList.add('message');
+  div.style.marginTop = '5px';
+  div.style.marginBottom = '5px';
+  div.textContent = message;
+
+  form.append(div);
 };
 
 const loginField = document.getElementById('login');
